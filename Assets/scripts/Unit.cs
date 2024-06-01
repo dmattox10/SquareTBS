@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -5,11 +6,16 @@ public class Unit : MonoBehaviour
     [SerializeField] private Animator unitAnimator;
     private Vector3 targetPosition;
     
-    private void Move(Vector3 targetPosition)
+    public void Move(Vector3 targetPosition)
     {
         this.targetPosition = targetPosition;
     }
-    
+
+    private void Awake()
+    {
+        targetPosition = transform.position;
+    }
+
     private void Update()
     {
         unitAnimator.SetBool("IsWalking", true);
@@ -26,12 +32,5 @@ public class Unit : MonoBehaviour
         {
             unitAnimator.SetBool("IsWalking", false);
         }
-        if (Input.GetMouseButtonDown(0))
-        {
-            
-            Move(MouseWorld.GetPosition());
-            Debug.Log("Clicked!" + MouseWorld.GetPosition());
-        }
-        
     }
 }
